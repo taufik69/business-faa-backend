@@ -10,7 +10,6 @@ const morgan = require("morgan");
 const { env } = require("./shared/config/env.config");
 const cors = require("cors");
 const app = express();
-app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -19,6 +18,17 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
+app.use(cors({
+  origin: [
+    "http://localhost:5174",
+    "http://localhost:3000",
+    "https://totalbazar.bd",
+    "https://www.totalbazar.bd",
+    "https://dashboard.totalbazar.bd",
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  credentials: true
+}));
 // Rate limiting
 // app.use("/api/", apiLimiter);
 
