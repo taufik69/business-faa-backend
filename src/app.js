@@ -10,8 +10,7 @@ const morgan = require("morgan");
 const { env } = require("./shared/config/env.config");
 const cors = require("cors");
 const app = express();
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+
 
 // Logging
 if (process.env.NODE_ENV === "development") {
@@ -29,6 +28,10 @@ app.use(cors({
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   credentials: true
 }));
+app.options("*", cors());
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 // Rate limiting
 // app.use("/api/", apiLimiter);
 
