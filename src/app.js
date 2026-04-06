@@ -6,6 +6,7 @@ const {
 } = require("@/shared/utils/globalErrorhandler.utils");
 const express = require("express");
 const compression = require("compression");
+const checkBlockedIp = require("./shared/middleware/ipBlock.middleware");
 const morgan = require("morgan");
 const { env } = require("./shared/config/env.config");
 const cors = require("cors");
@@ -33,6 +34,10 @@ app.use(cors({
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// IP blocking middleware
+app.use(checkBlockedIp);
+
 // Rate limiting
 // app.use("/api/", apiLimiter);
 
