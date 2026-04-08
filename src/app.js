@@ -6,6 +6,7 @@ const {
 } = require("@/shared/utils/globalErrorhandler.utils");
 const express = require("express");
 const compression = require("compression");
+const checkBlockedIp = require("./shared/middleware/ipBlock.middleware");
 const morgan = require("morgan");
 const { env } = require("./shared/config/env.config");
 const cors = require("cors");
@@ -20,6 +21,7 @@ if (process.env.NODE_ENV === "development") {
 app.use(cors({
   origin: [
     "http://localhost:5174",
+    "http://localhost:5173",
     "http://localhost:3000",
     "https://totalbazar.bd",
     "https://www.totalbazar.bd",
@@ -31,10 +33,14 @@ app.use(cors({
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   credentials: true
 }));
-app.options("*", cors());
+// app.options("*", cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// IP blocking middleware
+app.use(checkBlockedIp);
+
 // Rate limiting
 // app.use("/api/", apiLimiter);
 
