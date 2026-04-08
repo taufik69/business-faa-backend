@@ -24,6 +24,9 @@ app.use(cors({
     "https://totalbazar.bd",
     "https://www.totalbazar.bd",
     "https://dashboard.totalbazar.bd",
+    "https://fraudchecker.link",
+    "https://pdash.fraudchecker.link",
+    "http://localhost:5173"
   ],
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   credentials: true
